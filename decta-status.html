@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <title>Document</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      body.dark {
+        background-color: #21282f;
+      }
+      .container {
+        display: flex;
+        justify-content: center;
+      }
+      .container-wrapper {
+        width: 328px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .loader-wrapper {
+        display: flex;
+        justify-content: center;
+        margin-top: 153px;
+        margin-bottom: 94.5px;
+      }
+      .loader {
+        width: 124px;
+        height: 124px;
+        -webkit-animation: loader 1.2s infinite ease-in-out;
+        animation: loader 1.2s infinite ease-in-out;
+      }
+
+      @-webkit-keyframes loader {
+        0% {
+          transform: perspective(360px) rotateX(0deg) rotateY(0deg);
+        }
+        50% {
+          transform: perspective(360px) rotateX(-180.1deg) rotateY(0deg);
+        }
+        100% {
+          transform: perspective(360px) rotateX(-180deg) rotateY(-179.9deg);
+        }
+      }
+
+      @keyframes loader {
+        0% {
+          transform: perspective(360px) rotateX(0deg) rotateY(0deg);
+        }
+        50% {
+          transform: perspective(360px) rotateX(-180.1deg) rotateY(0deg);
+        }
+        100% {
+          transform: perspective(360px) rotateX(-180deg) rotateY(-179.9deg);
+        }
+      }
+      .line-loader {
+        width: 100%;
+        margin-bottom: 12.5px;
+      }
+      .text-wrapper {
+        color: #1b1711;
+        text-align: center;
+        font-family: "IBM Plex Sans";
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+      }
+      .dark .text-wrapper {
+        color: #f5f6fa;
+      }
+    </style>
+  </head>
+  <body id="payment-status">
+    <div class="container">
+      <div class="container-wrapper">
+        <div class="loader-wrapper">
+          <div class="loader">
+            <svg
+              id="Layer_1"
+              data-name="Layer 1"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 349 368"
+            >
+              <defs>
+                <style>
+                  .cls-1 {
+                    fill: #0470e1;
+                  }
+                </style>
+              </defs>
+              <title>logo_blue</title>
+              <g id="lcx_logo">
+                <polygon
+                  class="cls-1"
+                  points="197.39 184.69 267.61 254.5 309.32 254.25 238.06 183.86 309.41 113.42 268.24 112.86 197.39 184.69"
+                />
+                <polygon
+                  class="cls-1"
+                  points="178.12 163.54 247.93 93.32 247.68 51.61 177.29 122.88 106.85 51.52 106.3 92.69 178.12 163.54"
+                />
+                <polygon
+                  class="cls-1"
+                  points="156.89 182.67 86.67 112.86 44.96 113.11 116.22 183.5 44.87 253.94 86.04 254.5 156.89 182.67"
+                />
+                <polygon
+                  class="cls-1"
+                  points="176.16 204.46 106.34 274.68 106.6 316.39 176.99 245.13 247.43 316.48 247.98 275.31 176.16 204.46"
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
+        <img
+          id="lineLoader"
+          class="line-loader"
+          src="./light.gif"
+          alt="loader"
+        />
+        <div class="text-wrapper">
+          Re-directing in <span id="timer">3</span> seconds...
+        </div>
+      </div>
+    </div>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const theme = params.get("theme");
+
+      // For Theme
+      document
+        .getElementById("payment-status")
+        .classList.add(theme ? theme : "light");
+
+      document.getElementById("lineLoader").src =
+        theme && theme === "dark" ? "./dark.gif" : "./light.gif";
+
+      function countdown() {
+        var timerElement = document.getElementById("timer");
+        var seconds = parseInt(timerElement.textContent);
+
+        seconds--;
+
+        if (seconds > 0) {
+          timerElement.textContent = seconds;
+          setTimeout(countdown, 1000);
+        } else {
+          timerElement.textContent = "0";
+          console.log("DectaTransactionDone");
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(countdown, 1000);
+      });
+    </script>
+  </body>
+</html>
